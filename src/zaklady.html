@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Základy geografie</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+<header>
+    <div class="navbar">
+        <div class="logo">Socioekonomická geografie</div>
+        <ul>
+            <li><a href="index.html">Domů</a></li>
+            <li><a href="zaklady.html" class="active">Základy geografie</a></li>
+            <li><a href="Obyvatelstvo.html">Obyvatelstvo</a></li>
+            <li><a href="Průmysl.html">Průmysl</a></li>
+            <li><a href="informace.html">Další informace</a></li>
+
+            <button id="voiceBtn" class="voice-btn">🔊 Přečíst</button>
+            <button id="voiceStop" class="voice-btn">🔇 Stop</button>
+        </ul>
+    </div>
+</header>
+
+<main>
+    <section class="info-section">
+        <h1>Základy geografie</h1>
+
+        <div class="info-box">
+            <h2>Co je geografie?</h2>
+            <p>
+                <strong>Geografie</strong> je věda, která se zabývá studiem Země, její krajiny, obyvatel a vztahů mezi
+                člověkem a prostředím.
+                Pomáhá nám pochopit, proč svět vypadá tak, jak vypadá – proč jsou některé oblasti hustě osídlené,
+                jiné pusté, proč se mění klima, a jak lidé ovlivňují své okolí.
+            </p>
+            <p>
+                Geografie propojuje přírodní a společenské vědy – zkoumá přírodu i lidskou činnost jako celek.
+                Díky tomu nám umožňuje porozumět souvislostem mezi krajinou, ekonomikou, kulturou a životním stylem
+                lidí.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <h2>Základní pojmy v geografii</h2>
+            <ul class="geo-list">
+                <li><strong>
+                    <a href="https://cs.wikipedia.org/wiki/Mapa"
+                       target="_blank"
+                       class="gis-link"><strong>Mapa</strong></a>
+                </strong> – zmenšený a zjednodušený obraz Země nebo její části.
+                </li>
+                <li><strong>
+                    <a href="https://cs.wikipedia.org/wiki/Region"
+                       target="_blank"
+                       class="gis-link"><strong>Region</strong></a>
+                </strong> – území, které má společné přírodní, kulturní nebo ekonomické znaky.
+                </li>
+                <li><strong>
+                    <a href="https://cs.wikipedia.org/wiki/Demografie"
+                       target="_blank"
+                       class="gis-link"><strong>Demografie</strong></a>
+                </strong> – věda zabývající se obyvatelstvem, jeho strukturou a vývojem.
+                </li>
+                <li><strong>
+                    <a href="https://cs.wikipedia.org/wiki/Prostor_(geografie)"
+                       target="_blank"
+                       class="gis-link"><strong>Prostor</strong></a></strong> – základní pojem geografie, který
+                    vyjadřuje vzájemné vztahy mezi objekty na Zemi.
+                </li>
+                <li><strong>
+                    <a href="https://cs.wikipedia.org/wiki/Globalizace"
+                       target="_blank"
+                       class="gis-link"><strong>Globalizace</strong></a>
+                </strong> – proces, při kterém se svět stává stále více propojeným.
+                </li>
+                <li><strong>
+                    <a href="https://cs.wikipedia.org/wiki/Udr%C5%BEiteln%C3%BD_rozvoj"
+                       target="_blank"
+                       class="gis-link"><strong>Udržitelný rozvoj</strong></a>
+                </strong> – rozvoj, který naplňuje potřeby současnosti, aniž by ohrozil možnosti budoucích generací.
+                </li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <h2>Proč je geografie důležitá?</h2>
+            <p>
+                Geografie nám pomáhá chápat svět kolem nás, přemýšlet o souvislostech a nacházet rovnováhu mezi rozvojem
+                společnosti a ochranou přírody.
+                Pomáhá při plánování měst, dopravních sítí, hospodaření s vodou nebo ochraně krajiny.
+            </p>
+            <p>
+                Díky geografii si uvědomujeme, že každý náš čin má dopad – lokální i globální.
+                A právě v tom spočívá její krása: učí nás vidět svět jako propojený systém.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <h2>Vyzkoušejte své znalost</h2>
+            <div id="quiz-container">
+                <h2>Mini kvíz</h2>
+                <p>Otestujte si své znalosti 🙂</p>
+
+                <button id="start-btn">Začít kvíz</button>
+
+                <div id="quiz" style="display: none;">
+                    <h3 id="question"></h3>
+                    <div id="answers"></div>
+                </div>
+
+                <div id="result" style="display: none;"></div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    © 2025 Socioekonomická geografie | Všechna práva vyhrazena
+</footer>
+<script>
+    document.querySelectorAll('.geo-list li').forEach((item) => {
+        item.addEventListener('mousemove', (e) => {
+            const rect = item.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            item.style.setProperty('--x', `${x}px`);
+            item.style.setProperty('--y', `${y}px`);
+        });
+    });
+</script>
+<audio id="click-sound" src="click.mp3" preload="auto"></audio>
+
+<script>
+    const voiceStartButton = document.getElementById("voiceBtn");
+
+    if (voiceStartButton) {
+        voiceStartButton.addEventListener("click", function () {
+            window.speechSynthesis.cancel();
+
+            const mainContent = document.querySelector('main');
+            const text = mainContent ? mainContent.innerText : document.body.innerText;
+
+            const speech = new SpeechSynthesisUtterance(text);
+            speech.lang = "cs-CZ";
+            speech.rate = 1;
+            speech.pitch = 1;
+
+            window.speechSynthesis.speak(speech);
+        });
+    }
+
+    const voiceStopButton = document.getElementById("voiceStop");
+
+    if (voiceStopButton) {
+        voiceStopButton.addEventListener("click", function () {
+            window.speechSynthesis.cancel();
+        });
+    }
+
+    const toggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    if (toggle) {
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            toggle.textContent = '☀️';
+        }
+        toggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            toggle.textContent = isDark ? '☀️' : '🌙';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+    }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const questions = [
+            {
+                text: "Jaký je největší oceán na Zemi?",
+                answers: ["Atlantský oceán", "Indický oceán", "Tichý oceán", "Severní ledový oceán"],
+                correct: 2
+            },
+            {text: "Kolik kontinentů obecně rozlišujeme?", answers: ["5", "6", "7", "4"], correct: 2},
+            {
+                text: "Která řeka je nejdelší na světě?",
+                answers: ["Nil", "Amazonka", "Jang-c’-ťiang", "Mississippi"],
+                correct: 1
+            },
+            {text: "Jaká je nejvyšší hora světa?", answers: ["K2", "Makalu", "Mount Everest", "Lhotse"], correct: 2},
+            {text: "Který stát má největší rozlohu?", answers: ["Kanada", "Rusko", "Čína", "Brazílie"], correct: 1},
+            {
+                text: "Které z těchto moří je nejslanější?",
+                answers: ["Rudé moře", "Baltské moře", "Jaderské moře", "Mrtvé moře"],
+                correct: 3
+            },
+            {
+                text: "Které podnebí má nejvyšší teploty během celého roku?",
+                answers: ["Polární", "Mírné", "Tropické", "Subarktické"],
+                correct: 2
+            },
+            {
+                text: "Co označuje pojem „rovník“?",
+                answers: ["Poledník 0°", "Nejdelší rovnoběžku na Zemi", "Bod na severním pólu", "Nadmořskou výšku"],
+                correct: 1
+            },
+            {
+                text: "Který oceán omývá východní pobřeží Afriky?",
+                answers: ["Tichý oceán", "Atlantský oceán", "Indický oceán", "Severní ledový oceán"],
+                correct: 2
+            },
+            {
+                text: "Který kontinent má nejvíce států?",
+                answers: ["Evropa", "Afrika", "Asie", "Jižní Amerika"],
+                correct: 1
+            },
+            {
+                text: "Co je to delta řeky?",
+                answers: ["Místo, kde řeka vzniká", "Místo, kde řeka mění směr", "Místo, kde řeka prudce klesá", "Místo, kde se řeka větví a vlévá do moře"],
+                correct: 3
+            },
+            {text: "Který stát má největší populaci?", answers: ["USA", "Indie", "Čína", "Indonésie"], correct: 1}
+        ];
+
+        let current = 0;
+        let correctCount = 0;
+
+        const startBtn = document.getElementById("start-btn");
+        const quiz = document.getElementById("quiz");
+        const questionEl = document.getElementById("question");
+        const answersEl = document.getElementById("answers");
+        const resultEl = document.getElementById("result");
+
+        startBtn.onclick = () => {
+            startBtn.style.display = "none";
+            quiz.style.display = "block";
+            showQuestion();
+        };
+
+        function showQuestion() {
+            let q = questions[current];
+            questionEl.textContent = q.text;
+
+            answersEl.innerHTML = "";
+            q.answers.forEach((ans, i) => {
+                let btn = document.createElement("button");
+                btn.textContent = ans;
+                btn.style.display = "block";
+                btn.style.margin = "10px auto";
+                btn.onclick = () => checkAnswer(i);
+                answersEl.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(i) {
+            if (i === questions[current].correct) correctCount++;
+
+            current++;
+            if (current < questions.length) showQuestion();
+            else endQuiz();
+        }
+
+        function endQuiz() {
+            quiz.style.display = "none";
+            resultEl.style.display = "block";
+
+            let total = questions.length;
+            let wrong = total - correctCount;
+
+            let grade = "";
+            if (correctCount === total) grade = "🔥 Perfektní výsledek!";
+            else if (correctCount >= total * 0.7) grade = "👍 Výborně!";
+            else if (correctCount >= total * 0.5) grade = "🙂 Dobrá práce!";
+            else grade = "😐";
+
+            resultEl.innerHTML = `
+            <h2>Výsledek</h2>
+            <p>Správně: <b>${correctCount}</b></p>
+            <p>Špatně: <b>${wrong}</b></p>
+            <h3>${grade}</h3>
+        `;
+        }
+    });
+</script>
+
+
+</body>
+</html>

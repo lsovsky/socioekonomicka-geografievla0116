@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>GIS – Geografické informační systémy</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+<header>
+
+
+    <div class="navbar">
+        <div class="logo">Socioekonomická geografie</div>
+        <ul>
+            <li><a href="index.html">Domů</a></li>
+            <li><a href="zaklady.html">Základy geografie</a></li>
+            <li><a href="Obyvatelstvo.html">Obyvatelstvo</a></li>
+            <li><a href="Průmysl.html" class="active">Průmysl</a></li>
+            <li><a href="informace.html">Další informace</a></li>
+
+            <button id="voiceBtn" class="voice-btn">🔊 Přečíst</button>
+            <button id="voiceStop" class="voice-btn">🔇 Stop</button>
+        </ul>
+    </div>
+</header>
+
+<main>
+    <section class="info-section">
+        <h1>Průmysl v České Republice</h1>
+
+        <div class="info-box">
+            <h2> Průmysl České Republiky</h2>
+            <p>
+                Průmysl České Republiky je klíčovou součástí národního hospodářství a je charakterizován silnou
+                orientací na automobilový průmysl, strojírenství a další zpracovatelský průmysl, jako je chemický,
+                hutnický a elektrotechnický. Tvoří významný podíl na HDP a zaměstnává zhruba 40 % ekonomicky aktivního
+                obyvatelstva. V současnosti se potýká s výzvami spojenými s mezinárodní poptávkou, inflací a vyššími
+                cenami energií, nicméně automobilový průmysl zůstává dominantním odvětvím z hlediska tržeb i
+                zaměstnanosti.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <h2>Automobilový průmysl v České Republice</h2>
+            <p>
+                Automobilový průmysl je jedním z nejdůležitějších sektorů české ekonomiky. Česká Republika patří k
+                největším výrobcům automobilů v Evropě v přepočtu na obyvatele a v oboru pracují desítky tisíc lidí.
+                Kromě výroby osobních aut zahrnuje i produkci autobusů, nákladních vozidel, traktorů a široké škály
+                komponentů.
+                Mapa ukazuje rozmístění automobilových závodů v jednotlivých krajích. Výroba je soustředěna hlavně ve
+                Středočeském, Plzeňském, Moravskoslezském a Zlínském kraji, zatímco jiné regiony mají jen malou nebo
+                žádnou přítomnost automobilového sektoru. Rozložení odráží historický vývoj, průmyslovou tradici i
+                ekonomickou specializaci krajů.
+            </p>
+
+            <div class="iframe-map">
+                <div>
+                    <img src="./images/Layout2.png" alt="Mapa ČSÚ - zaměstnanost" class="csu-map-img"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h2>Čím se „baví“ lidé v Česku?</h2>
+            <p>
+                Pavoukový graf ukazuje, že lidé v Česku pracují hlavně v průmyslu, stavebnictví, dopravě a obchodě –
+                tedy v tradičních odvětvích, která drží ekonomiku v chodu. Každé město má ale trochu jiný charakter:
+                Ostrava je stále průmyslová, zatímco Pardubice nebo Olomouc mají větší podíl vzdělávání a veřejné
+                správy. Struktura zaměstnanosti tak odhaluje, jak rozdílné jsou regiony a jak se města přizpůsobují
+                moderním profesím.
+            </p>
+
+            <div class="iframe-map">
+                <div>
+                    <img src="./images/12.png" alt="Mapa ČSÚ - zaměstnanost" class="csu-map-img"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-image">
+            <img
+                    src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHZ6aXpjYXl1d3F1d2tkOXU0c3Z2NW5zb2RyanhuamZzMzBiN3RmdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/joJT2zeWCWhLa/giphy.gif"
+                    alt="GIF animace GIS"
+            />
+        </div>
+    </section>
+</main>
+
+<footer>
+    © 2025 Socioekonomická geografie | Všechna práva vyhrazena
+</footer>
+<audio id="click-sound" src="click.mp3" preload="auto"></audio>
+
+<script>
+    const voiceStartButton = document.getElementById("voiceBtn");
+
+    if (voiceStartButton) {
+        voiceStartButton.addEventListener("click", function () {
+            window.speechSynthesis.cancel();
+
+            const mainContent = document.querySelector('main');
+            const text = mainContent ? mainContent.innerText : document.body.innerText;
+
+            const speech = new SpeechSynthesisUtterance(text);
+            speech.lang = "cs-CZ";
+            speech.rate = 1;
+            speech.pitch = 1;
+
+            window.speechSynthesis.speak(speech);
+        });
+    }
+
+    const voiceStopButton = document.getElementById("voiceStop");
+
+    if (voiceStopButton) {
+        voiceStopButton.addEventListener("click", function () {
+            window.speechSynthesis.cancel();
+        });
+    }
+
+    const toggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    if (toggle) {
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            toggle.textContent = '☀️';
+        }
+
+        toggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            toggle.textContent = isDark ? '☀️' : '🌙';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+    }
+</script>
+</body>
+</html>

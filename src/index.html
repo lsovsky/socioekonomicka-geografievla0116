@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Socioekonomická geografie</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+
+
+<body>
+<div class="background"></div>
+
+<header>
+    <nav class="navbar">
+        <h1 class="logo">Socioekonomická geografie</h1>
+        <ul>
+            <li><a href="index.html" class="active">Domů</a></li>
+            <li><a href="zaklady.html">Základy geografie</a></li>
+            <li><a href="Obyvatelstvo.html">Obyvatelstvo</a></li>
+            <li><a href="Průmysl.html">Průmysl</a></li>
+            <li><a href="informace.html">Další informace</a></li>
+
+            <button id="voiceBtn" class="voice-btn">🔊 Přečíst</button>
+            <button id="voiceStop" class="voice-btn">🔇 Stop</button>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="intro">
+        <h2>Vítejte v multimediálním systému o socioekonomické geografii!</h2>
+        <p>
+            Tento web je věnován oboru <strong>socioekonomická geografie</strong> – disciplíně, která zkoumá vztahy mezi
+            společností, ekonomikou a prostorem. Ukážeme si, proč je tento předmět důležitý a jak pomáhá chápat
+            fungování světa kolem nás.
+        </p>
+
+        <a href="https://cs.wikipedia.org/wiki/Socioekonomick%C3%A1_geografie"
+           target="_blank"
+           class="main-btn">
+            Zjistit více
+        </a>
+
+    </section>
+
+    <section class="cards">
+        <div class="card">
+            <h3>O čem je tento předmět?</h3>
+            <p>
+                Zabývá se propojením lidí, ekonomik a regionů. Pomáhá pochopit rozdíly v rozvoji jednotlivých oblastí,
+                migraci obyvatel, dostupnost zdrojů a prostorové rozmístění průmyslu či služeb.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Proč je důležitý?</h3>
+            <p>
+                Díky socioekonomické geografii můžeme lépe porozumět tomu, jak ekonomické a společenské procesy
+                ovlivňují naše prostředí
+                a jak můžeme plánovat udržitelný rozvoj regionů.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Jak ji využít?</h3>
+            <p>
+                Znalosti z tohoto oboru využijete v oblasti regionálního plánování, státní správy, environmentálních
+                analýz
+                i při práci s geografickými informačními systémy (GIS).
+            </p>
+        </div>
+    </section>
+
+    <section class="more">
+        <h2>Začněte své poznávání!</h2>
+        <p>Prozkoumejte více o tomto oboru na dalších stránkách:</p>
+        <div class="links">
+            <a href="zaklady.html" class="link-btn">Základy geografie</a>
+            <a href="Obyvatelstvo.html" class="link-btn">Obyvatelstvo</a>
+            <a href="Průmysl.html" class="link-btn">Průmysl</a>
+            <a href="informace.html" class="link-btn">Další informace</a>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>© 2025 Socioekonomická geografie | Všechna práva vyhrazena</p>
+</footer>
+<audio id="click-sound" src="click.mp3" preload="auto"></audio>
+
+<script>
+    const voiceStartButton = document.getElementById("voiceBtn");
+
+    if (voiceStartButton) {
+        voiceStartButton.addEventListener("click", function () {
+            window.speechSynthesis.cancel();
+
+            const mainContent = document.querySelector('main');
+            const text = mainContent ? mainContent.innerText : document.body.innerText;
+
+            const speech = new SpeechSynthesisUtterance(text);
+            speech.lang = "cs-CZ";
+            speech.rate = 1;
+            speech.pitch = 1;
+
+            window.speechSynthesis.speak(speech);
+        });
+    }
+
+    const voiceStopButton = document.getElementById("voiceStop");
+
+    if (voiceStopButton) {
+        voiceStopButton.addEventListener("click", function () {
+            window.speechSynthesis.cancel();
+        });
+    }
+
+    const toggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    if (toggle) {
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            toggle.textContent = '☀️';
+        }
+
+        toggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            toggle.textContent = isDark ? '☀️' : '🌙';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+    }
+</script>
+
+
+</body>
+</html>

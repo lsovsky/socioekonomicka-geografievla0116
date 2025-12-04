@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="cs">
+<body>
+
+<button id="speak">Čti</button>
+
+<script>
+    document.getElementById("speak").addEventListener("click", () => {
+        const speech = new SpeechSynthesisUtterance("Ahoj, toto je test.");
+        speech.lang = "cs-CZ";
+        window.speechSynthesis.speak(speech);
+    });
+</script>
+
+</body>
+</html>

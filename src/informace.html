@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Další informace</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+<header>
+    <div class="navbar">
+        <div class="logo">Socioekonomická geografie</div>
+        <ul>
+            <li><a href="index.html">Domů</a></li>
+            <li><a href="zaklady.html">Základy geografie</a></li>
+            <li><a href="Obyvatelstvo.html">Obyvatelstvo</a></li>
+            <li><a href="Průmysl.html">Průmysl</a></li>
+            <li><a href="informace.html" class="active">Další informace</a></li>
+
+            <button id="voiceBtn" class="voice-btn">🔊 Přečíst</button>
+            <button id="voiceStop" class="voice-btn">🔇 Stop</button>
+        </ul>
+    </div>
+</header>
+<main>
+    <section class="info-section">
+        <h1>Další informace</h1>
+
+        <div class="info-box">
+            <p>
+                <strong>Socioekonomická geografie</strong> se zaměřuje na studium
+                vztahů mezi společností, ekonomikou a prostorem. Sleduje, jak lidé
+                využívají území, jak se rozvíjejí regiony, města i venkov a jak
+                ekonomické a sociální procesy ovlivňují kvalitu života obyvatel.
+            </p>
+
+            <p>
+                Na této stránce najdete doplňující informace, odkazy na doporučené
+                zdroje a zajímavé materiály týkající se regionálního rozvoje,
+                globalizace, migrace či trvale udržitelného rozvoje. Cílem je
+                nabídnout širší pohled na to, jak se prostorová organizace
+                společnosti promítá do každodenního života i do fungování ekonomiky.
+            </p>
+
+            <p>
+                Socioekonomická geografie propojuje poznatky z různých vědních
+                disciplín a pomáhá lépe porozumět světu kolem nás – jeho dynamice,
+                nerovnostem i příležitostem pro budoucí rozvoj.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <h2>Jak vám socioekonomická geografie bere čas</h2>
+            <p>
+                Každý z nás žije v rytmu, který nepřetržitě ovlivňuje něco neviditelného — socioekonomická geografie.
+                To, kde pracujete, jak daleko máte obchod, jak dlouho jedete do školy nebo jestli stihnete večer
+                odpočívat, není náhoda. Je to výsledek toho, jak jsou v prostoru rozmístěné služby, pracovní
+                příležitosti a doprava.
+
+                Města šetří čas, venkov ho stojí víc. Když bydlíte v centru, dojdete kamkoli za pár minut. Když žijete
+                na okraji kraje, první autobus jede možná až po šesté a do práce dorazíte po hodinové jízdě. Za rok jsou
+                to stovky hodin ztraceného volného času — a mapa dostupnosti to ukáže jasně: světlé oblasti jsou rychlé,
+                tmavé „polykají“ minuty.
+
+                Tomu se říká časová chudoba. Nejde o nedostatek peněz, ale o nedostatek volného času, který mizí při
+                každodenním dojíždění. Geografie tak nepřímo rozhoduje o vašem stresu, kvalitě života i o tom, kolik
+                času máte sami pro sebe.
+
+                A proto má tento obor větší vliv, než se zdá. Socioekonomická geografie není teorie — je to mapa toho,
+                kolik života vám zůstane mezi prací a domovem.
+            </p>
+
+
+            <div class="iframe-map">
+                <div>
+                    <img src="./images/Layout.png" alt="Mapa ČSÚ - zaměstnanost" class="csu-map-img"/>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="info-video">
+            <h2>Socioeconomic Status</h2>
+            <iframe
+                    src="https://www.youtube.com/embed/IeZh-RdrI1g"
+                    title="Socioekonomická geografie"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+            ></iframe>
+            <p class="video-caption">
+                Krátké video přibližující, jak socioekonomická geografie pomáhá
+                porozumět světu kolem nás.
+            </p>
+        </div>
+
+
+    </section>
+</main>
+
+<footer>
+    © 2025 Socioekonomická geografie | Všechna práva vyhrazena
+</footer>
+<audio id="click-sound" src="click.mp3" preload="auto"></audio>
+
+<script>
+    const voiceStartButton = document.getElementById("voiceBtn");
+
+    if (voiceStartButton) {
+        voiceStartButton.addEventListener("click", function () {
+            window.speechSynthesis.cancel();
+
+            const mainContent = document.querySelector('main');
+            const text = mainContent ? mainContent.innerText : document.body.innerText;
+
+            const speech = new SpeechSynthesisUtterance(text);
+            speech.lang = "cs-CZ";
+            speech.rate = 1;
+            speech.pitch = 1;
+
+            window.speechSynthesis.speak(speech);
+        });
+    }
+
+    const voiceStopButton = document.getElementById("voiceStop");
+
+    if (voiceStopButton) {
+        voiceStopButton.addEventListener("click", function () {
+            window.speechSynthesis.cancel();
+        });
+    }
+
+    const toggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    if (toggle) {
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            toggle.textContent = '☀️';
+        }
+
+        toggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            toggle.textContent = isDark ? '☀️' : '🌙';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+    }
+</script>
+</body>
+</html>
